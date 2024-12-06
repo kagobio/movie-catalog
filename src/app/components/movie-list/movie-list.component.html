@@ -6,20 +6,21 @@
 
   <!-- Contenido Principal -->
   <main class="p-4">
-    <!-- Contenedor de la lista de películas -->
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-      <!-- Recorremos las películas con *ngFor -->
       <div
         *ngFor="let movie of movies"
         class="bg-gray-800 rounded overflow-hidden shadow-lg"
       >
-        <!-- Imagen de la película -->
+        <!-- Mostrar la imagen o un placeholder si no hay -->
         <img
-          [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+          [src]="
+            movie.poster_path
+              ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path
+              : 'assets/default-image.jpg'
+          "
           [alt]="movie.title"
           class="w-full h-64 object-cover"
         />
-        <!-- Nombre de la película -->
         <div class="p-2">
           <h2 class="text-center font-bold text-white text-sm truncate">
             {{ movie.title }}
