@@ -1,0 +1,13 @@
+<div class="bg-gray-900 text-white min-h-screen p-4">
+  <h1 class="text-2xl font-bold mb-4">Mis Películas Favoritas</h1>
+  <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+    <div *ngFor="let movie of favorites" class="bg-gray-800 p-2 rounded">
+      <img
+        [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+        alt="{{ movie.title }}"
+        class="rounded"
+      />
+      <h2 class="text-lg font-semibold mt-2">{{ movie.title }}</h2>
+    </div>
+  </div>
+</div>
