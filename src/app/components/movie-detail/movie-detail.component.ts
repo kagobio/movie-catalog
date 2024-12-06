@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { MovieService } from '../../services/movie.service';
 
 @Component({
   selector: 'app-movie-detail',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './movie-detail.component.html',
   styleUrls: ['./movie-detail.component.css'],
 })
@@ -16,13 +19,11 @@ export class MovieDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.params['id'];
-    this.movieService.getMovieDetails(id).subscribe((data: any) => {
-      this.movie = data;
-    });
-  }
-
-  goBack() {
-    history.back();
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.movieService.getMovieDetails(id).subscribe((data: any) => {
+        this.movie = data;
+      });
+    }
   }
 }

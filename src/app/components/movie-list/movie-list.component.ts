@@ -1,32 +1,57 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MovieService } from '../../services/movie.service'; // Importa solo el servicio, sin otros componentes
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { MovieService } from '../../services/movie.service';
 
 @Component({
   selector: 'app-movie-list',
   standalone: true,
-  imports: [
-    CommonModule, // Importar CommonModule para usar *ngFor y *ngIf
-  ],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './movie-list.component.html',
   styleUrls: ['./movie-list.component.css'],
 })
 export class MovieListComponent implements OnInit {
   movies: any[] = [];
+  searchQuery: string = '';
+  genres: any[] = [];
+  selectedGenre: string = '';
+  currentYear: number = new Date().getFullYear(); // Calcula el año actual
 
   constructor(private movieService: MovieService) {}
 
   ngOnInit(): void {
-    console.log('Componente inicializado');
+    this.movieService.getPopularMovies().subscribe((data: any) => {
+      this.movies = data.results;
+    });
 
-    this.movieService.getPopularMovies().subscribe(
-      (data: any) => {
-        console.log('Películas recibidas:', data);
-        this.movies = data.results;
-      },
-      (error) => {
-        console.error('Error al cargar las películas:', error);
-      }
-    );
+    this.movieService.getGenres().subscribe((data: any) => {
+      this.genres = data.genres;
+    });
+  }
+
+  searchMovies(): void {
+    if (this.searchQuery.trim()) {
+      this.movieService
+        .searchMovies(this.searchQuery)
+        .subscribe((data: any) => {
+          this.movies = data.results;
+        });
+    }
+  }
+
+  filterByGenre(): void {
+    if (this.selectedGenre) {
+      this.movieService
+        .getMoviesByGenre(this.selectedGenre)
+        .subscribe((data: any) => {
+          this.movies = data.results;
+        });
+    }
+  }
+
+  addFavorite(movie: any): void {
+    this.movieService.addToFavorites(movie);
+    alert(`${movie.title} añadido a favoritos`);
   }
 }
