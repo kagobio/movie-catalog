@@ -16,7 +16,7 @@ export class MovieListComponent implements OnInit {
   searchQuery: string = '';
   genres: any[] = [];
   selectedGenre: string = '';
-  currentYear: number = new Date().getFullYear(); // Calcula el año actual
+  currentYear: number = new Date().getFullYear();
 
   constructor(private movieService: MovieService) {}
 

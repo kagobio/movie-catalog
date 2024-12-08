@@ -1,12 +1,9 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http'; // Nueva API para HttpClient
+import { provideHttpClient } from '@angular/common/http';
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
 
 bootstrapApplication(AppComponent, {
-  providers: [
-    provideRouter(routes), // Proveer rutas
-    provideHttpClient(), // Proveer HttpClient
-  ],
+  providers: [provideRouter(routes), provideHttpClient()],
 }).catch((err) => console.error(err));

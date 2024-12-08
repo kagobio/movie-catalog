@@ -4,7 +4,7 @@ import { MovieDetailComponent } from './components/movie-detail/movie-detail.com
 import { FavoritesComponent } from './components/favorites/favorites.component';
 
 export const routes: Routes = [
-  { path: '', component: MovieListComponent }, // Lista de películas
+  { path: '', component: MovieListComponent },
   { path: 'movie/:id', component: MovieDetailComponent },
-  { path: 'favorites', component: FavoritesComponent }, // Ruta para favoritos
+  { path: 'favorites', component: FavoritesComponent },
 ];
